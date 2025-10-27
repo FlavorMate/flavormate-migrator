@@ -1,0 +1,6 @@
+services:
+  flavormate-migrator:
+    image: flavormate/migrator:latest
+    container_name: flavormate-migrator
+    volumes:
+      - #
