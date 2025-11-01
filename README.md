@@ -25,7 +25,16 @@ tailored just for you.
 1. Create a `docker-compose.yaml` file (or download one from the [examples](./example))
 2. Download the [.env.template](./example/.env.template) file and rename it to `.env`.
 3. Enter your details into the `.env` file
-4. Start your container with `docker compose up -d --remove-orphans`
+4. Start your container with
+
+   ```bash
+   docker run --rm \
+   -v .env:/app/.env:ro \
+   -v ./data/files:$FLAVORMATE_PATHS_FILES \
+   ghcr.io/flavormate/flavormate-migrator:latest
+   ```
+
+   (replace `$FLAVORMATE_PATHS_FILES` with the path specified in your `.env` file)
 
 </details>
 
@@ -36,6 +45,7 @@ You must have these dependencies installed:
 
 - Postgresql
 - Java 21
+- ImageMagick (with WEBP and other used formats plugins)
 
 1. Download the latest [FlavorMate-Migrator.jar](https://github.com/FlavorMate/flavormate-migrator/releases).
 2. Download the [.env.template](./example/.env.template) file and rename it to `.env`.
