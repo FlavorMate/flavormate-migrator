@@ -32,14 +32,11 @@ object FlywayInstance {
         instance
           ?: Flyway.configure()
             .dataSource(url, username, password)
-            .cleanDisabled(false)
             .defaultSchema("public")
             .locations("classpath:db/migration")
             .table("v3_flyway_schema_history")
             .baselineVersion("3.0.0")
-            .skipDefaultCallbacks(true)
-            // .sqlMigrationPrefix("V")
-            //  .sqlMigrationSeparator("__")
+            .baselineOnMigrate(true)
             .load()
       }
 }

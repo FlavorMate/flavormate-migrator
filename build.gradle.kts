@@ -42,7 +42,6 @@ tasks {
     archiveClassifier.set("standalone")
     mergeServiceFiles()
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    minimize()
   }
 
   build {

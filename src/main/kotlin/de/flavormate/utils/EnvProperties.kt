@@ -5,17 +5,18 @@ import io.github.cdimascio.dotenv.dotenv
 
 object EnvProperties {
 
-  val cleanDatabase: Boolean = dotenv().get("FLAVORMATE_MIGRATOR_CLEAN_DATABASE").toBooleanStrict()
+  val cleanDatabase: Boolean =
+    dotenv().get("FLAVORMATE_MIGRATOR_CLEAN_DATABASE", "false").toBooleanStrict()
   val rootPath: String = dotenv().get("FLAVORMATE_PATHS_FILES").let(::expandEnvVars)
 
   val sourceHost: String = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_HOST")
-  val sourcePort: Int = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_PORT")?.toInt() ?: 5432
+  val sourcePort: Int = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_PORT", "5432").toInt()
   val sourceDatabase: String = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_DB")
   val sourceUsername: String = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_USERNAME")
   val sourcePassword: String = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_PASSWORD")
 
   val targetHost: String = dotenv().get("FLAVORMATE_DB_HOST")
-  val targetPort: Int = dotenv().get("FLAVORMATE_DB_PORT")?.toInt() ?: 5432
+  val targetPort: Int = dotenv().get("FLAVORMATE_DB_PORT", "5432").toInt()
   val targetDatabase: String = dotenv().get("FLAVORMATE_DB_DATABASE")
   val targetUsername: String = dotenv().get("FLAVORMATE_DB_USER")
   val targetPassword: String = dotenv().get("FLAVORMATE_DB_PASSWORD")

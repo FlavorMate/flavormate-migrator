@@ -46,28 +46,29 @@ You must have these dependencies installed:
 
 ## Environment Variables
 
-<details open>
-<summary>General</summary>
-
-| Key                                    | Required | Description                                 | Example          | 
+|                  Key                   | Required |                 Description                 |     Example      |
 |----------------------------------------|----------|---------------------------------------------|------------------|
-| FLAVORMATE_MIGRATOR_DB_SOURCE_HOST     | Yes      | The source (FlavorMate 2) database host     | `localhost`      | 
-| FLAVORMATE_MIGRATOR_DB_SOURCE_PORT     | Yes      | The source (FlavorMate 2) database port     | `5432`           | 
+| FLAVORMATE_MIGRATOR_DB_SOURCE_HOST     | Yes      | The source (FlavorMate 2) database host     | `localhost`      |
+| FLAVORMATE_MIGRATOR_DB_SOURCE_PORT     | Yes      | The source (FlavorMate 2) database port     | `5432`           |
 | FLAVORMATE_MIGRATOR_DB_SOURCE_DB       | Yes      | The source (FlavorMate 2) database database | `flavormate_old` |
-| FLAVORMATE_MIGRATOR_DB_SOURCE_USERNAME | Yes      | The source (FlavorMate 2) database user     | `username`       | 
-| FLAVORMATE_MIGRATOR_DB_SOURCE_PASSWORD | Yes      | The source (FlavorMate 2) database password | `Passw0rd!`      | 
+| FLAVORMATE_MIGRATOR_DB_SOURCE_USERNAME | Yes      | The source (FlavorMate 2) database user     | `username`       |
+| FLAVORMATE_MIGRATOR_DB_SOURCE_PASSWORD | Yes      | The source (FlavorMate 2) database password | `Passw0rd!`      |
 
-| Key                    | Required | Description                                 | Example          |
+|          Key           | Required |                 Description                 |     Example      |
 |------------------------|----------|---------------------------------------------|------------------|
 | FLAVORMATE_DB_HOST     | Yes      | The target (FlavorMate 3) database host     | `localhost`      |
-| FLAVORMATE_DB_PORT     | Yes      | The target (FlavorMate 3) database port     | `5432`           | 
-| FLAVORMATE_DB_DATABASE | Yes      | The target (FlavorMate 3) database database | `flavormate_new` |  
-| FLAVORMATE_DB_USER     | Yes      | The target (FlavorMate 3) database user     | `username`       |   
-| FLAVORMATE_DB_PASSWORD | Yes      | The target (FlavorMate 3) database password | `Passw0rd!`      | 
+| FLAVORMATE_DB_PORT     | Yes      | The target (FlavorMate 3) database port     | `5432`           |
+| FLAVORMATE_DB_DATABASE | Yes      | The target (FlavorMate 3) database database | `flavormate_new` |
+| FLAVORMATE_DB_USER     | Yes      | The target (FlavorMate 3) database user     | `username`       |
+| FLAVORMATE_DB_PASSWORD | Yes      | The target (FlavorMate 3) database password | `Passw0rd!`      |
 
-| Key                                | Required | Description                                                  | Example      | Default |
+|                Key                 | Required |                         Description                          |   Example    | Default |
 |------------------------------------|----------|--------------------------------------------------------------|--------------|---------|
 | FLAVORMATE_PATHS_FILES             | Yes      | The path where FlavorMate files are located                  | `/opt/data/` |         |
 | FLAVORMATE_MIGRATOR_CLEAN_DATABASE | No       | Should the FlavorMate 3 Database be overwritten if existent? | `true`       | `false` |
 
-</details>
+> [!WARNING]
+> `FLAVORMATE_MIGRATOR_CLEAN_DATABASE` will delete all tables beginning with `v3_`.
+> These tables are used by FlavorMate 3, but check if you have any other tables beginning with `v3_` before setting this
+> to `true`.
+

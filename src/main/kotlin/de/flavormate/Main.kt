@@ -23,7 +23,7 @@ fun main(args: Array<String>) {
 
   if (EnvProperties.cleanDatabase) {
     println("Cleaning database")
-    FlywayInstance.getInstance().clean()
+    TargetDbInstance.clean()
   } else {
     val alreadyMigrated = TargetDbInstance.alreadyMigrated()
 

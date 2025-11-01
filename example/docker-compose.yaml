@@ -2,5 +2,7 @@ services:
   flavormate-migrator:
     image: flavormate/migrator:latest
     container_name: flavormate-migrator
+    env_file: .env
     volumes:
-      - #
+      # Use FLAVORMATE_PATHS_FILES
+      - ./data:${FLAVORMATE_PATHS_FILES}

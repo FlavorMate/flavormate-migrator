@@ -37,9 +37,38 @@ object TargetDbInstance {
 
   fun alreadyMigrated() =
     transaction(getInstance()) {
-      exec("SELECT EXISTS (SELECT DISTINCT 1 FROM public.v3_flyway_schema_history)") {
+      exec(
+        """
+            SELECT EXISTS (
+                SELECT FROM
+                    pg_tables
+                WHERE
+                    schemaname = 'public' AND
+                    tablename  = 'v3_flyway_schema_history'
+            );
+        """
+          .trimIndent()
+      ) {
         it.next()
         it.getBoolean(1)
       }!!
     }
+
+  fun clean() {
+    transaction(getInstance()) {
+      exec(
+        """
+            SELECT CONCAT('DROP TABLE IF EXISTS ', TABLE_NAME,' CASCADE;') as query
+            FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME LIKE 'v3_%';
+        """
+          .trimIndent()
+      ) {
+        while (it.next()) {
+          println(it.getString("query"))
+          exec(it.getString("query"))
+        }
+      }
+    }
+  }
 }
