@@ -4,30 +4,34 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   application
-  kotlin("jvm") version "2.2.21"
-  id("com.diffplug.spotless") version "8.0.0"
-  id("com.github.ben-manes.versions") version "0.53.0"
-  id("com.gradleup.shadow") version "9.2.2"
+  alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.spotless)
+  alias(libs.plugins.versions)
+  alias(libs.plugins.shadow)
+  // kotlin("jvm") version "2.2.21"
+  // id("com.diffplug.spotless") version "8.0.0"
+  // id("com.github.ben-manes.versions") version "0.53.0"
+  // id("com.gradleup.shadow") version "9.2.2"
 }
 
 group = "de.flavormate"
 
-version = "1.0-SNAPSHOT"
+version = "1.0.1"
 
 repositories { mavenCentral() }
 
 dependencies {
   testImplementation(kotlin("test"))
 
-  implementation("org.jetbrains.exposed:exposed-core:0.61.0")
-  implementation("org.jetbrains.exposed:exposed-dao:0.61.0")
-  implementation("org.jetbrains.exposed:exposed-jdbc:0.61.0")
-  implementation("org.jetbrains.exposed:exposed-java-time:0.61.0")
-  implementation("org.postgresql:postgresql:42.7.8")
-  implementation("org.flywaydb:flyway-core:11.15.0")
-  implementation("org.flywaydb:flyway-database-postgresql:11.15.0")
-  implementation("commons-io:commons-io:2.20.0")
-  implementation("io.github.cdimascio:dotenv-kotlin:6.5.1")
+  implementation(libs.kotlin.exposed.core)
+  implementation(libs.kotlin.exposed.dao)
+  implementation(libs.kotlin.exposed.jdbc)
+  implementation(libs.kotlin.exposed.java.time)
+  implementation(libs.postgresql)
+  implementation(libs.flyway.core)
+  implementation(libs.flyway.postgresql)
+  implementation(libs.apache.commons.io)
+  implementation(libs.dotenv)
 }
 
 java {
@@ -66,7 +70,10 @@ spotless {
   }
   java {
     cleanthat()
-    googleJavaFormat("1.25.2").reflowLongStrings().formatJavadoc(true).reorderImports(true)
+    googleJavaFormat(libs.versions.google.format.get())
+      .reflowLongStrings()
+      .formatJavadoc(true)
+      .reorderImports(true)
     formatAnnotations()
     removeUnusedImports()
     licenseHeader("/* Licensed under AGPLv3 2024 - ${LocalDate.now().year} */")
@@ -90,17 +97,6 @@ spotless {
     target("*.gradle.kts")
     ktfmt().googleStyle()
   }
-  //    sql {
-  //        target("**/*.sql")
-  //        prettier(mapOf("prettier-plugin-sql" to "0.19.2"))
-  //            .config(
-  //                mapOf(
-  //                    "plugins" to arrayOf("prettier-plugin-sql"),
-  //                    "parser" to "sql",
-  //                    "language" to "postgresql",
-  //                )
-  //            )
-  //    }
 }
 
 apply(from = "$projectDir/gradle/preCommit.gradle")

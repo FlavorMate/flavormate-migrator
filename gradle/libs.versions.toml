@@ -1,0 +1,34 @@
+[versions]
+kotlin = "2.2.21"
+spotless = "8.0.0"
+versions = "0.53.0"
+shadow = "9.2.2"
+exposed = "0.61.0"
+postgresql = "42.7.8"
+flyway = "11.15.0"
+commons-io = "2.20.0"
+dotenv = "6.5.1"
+google-format = "1.31.0"
+
+[libraries]
+kotlin-exposed-core = { group = "org.jetbrains.exposed", name = "exposed-core", version.ref = "exposed" }
+kotlin-exposed-dao = { group = "org.jetbrains.exposed", name = "exposed-dao", version.ref = "exposed" }
+kotlin-exposed-jdbc = { group = "org.jetbrains.exposed", name = "exposed-jdbc", version.ref = "exposed" }
+kotlin-exposed-java-time = { group = "org.jetbrains.exposed", name = "exposed-java-time", version.ref = "exposed" }
+
+postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
+
+flyway-core = { group = "org.flywaydb", name = "flyway-core", version.ref = "flyway" }
+flyway-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql", version.ref = "flyway" }
+
+apache-commons-io = { group = "commons-io", name = "commons-io", version.ref = "commons-io" }
+
+dotenv = { group = "io.github.cdimascio", name = "dotenv-kotlin", version.ref = "dotenv" }
+
+[bundles]
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

@@ -5,21 +5,46 @@ import io.github.cdimascio.dotenv.dotenv
 
 object EnvProperties {
 
-  val cleanDatabase: Boolean =
-    dotenv().get("FLAVORMATE_MIGRATOR_CLEAN_DATABASE", "false").toBooleanStrict()
-  val rootPath: String = dotenv().get("FLAVORMATE_PATHS_FILES").let(::expandEnvVars)
+  val dotenv = dotenv {
+    ignoreIfMalformed = true
+    ignoreIfMissing = true
+  }
 
-  val sourceHost: String = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_HOST")
-  val sourcePort: Int = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_PORT", "5432").toInt()
-  val sourceDatabase: String = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_DB")
-  val sourceUsername: String = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_USERNAME")
-  val sourcePassword: String = dotenv().get("FLAVORMATE_MIGRATOR_DB_SOURCE_PASSWORD")
+  val cleanDatabase: Boolean
+    get() = dotenv["FLAVORMATE_MIGRATOR_CLEAN_DATABASE"]?.toBooleanStrict() ?: false
 
-  val targetHost: String = dotenv().get("FLAVORMATE_DB_HOST")
-  val targetPort: Int = dotenv().get("FLAVORMATE_DB_PORT", "5432").toInt()
-  val targetDatabase: String = dotenv().get("FLAVORMATE_DB_DATABASE")
-  val targetUsername: String = dotenv().get("FLAVORMATE_DB_USER")
-  val targetPassword: String = dotenv().get("FLAVORMATE_DB_PASSWORD")
+  val rootPath: String
+    get() = dotenv["FLAVORMATE_PATHS_FILES"]!!.let(::expandEnvVars)
+
+  val sourceHost: String
+    get() = dotenv["FLAVORMATE_MIGRATOR_DB_SOURCE_HOST"]!!
+
+  val sourcePort: Int
+    get() = dotenv["FLAVORMATE_MIGRATOR_DB_SOURCE_PORT", "5432"]!!.toInt()
+
+  val sourceDatabase: String
+    get() = dotenv["FLAVORMATE_MIGRATOR_DB_SOURCE_DB"]!!
+
+  val sourceUsername: String
+    get() = dotenv["FLAVORMATE_MIGRATOR_DB_SOURCE_USERNAME"]!!
+
+  val sourcePassword: String
+    get() = dotenv["FLAVORMATE_MIGRATOR_DB_SOURCE_PASSWORD"]!!
+
+  val targetHost: String
+    get() = dotenv["FLAVORMATE_DB_HOST"]!!
+
+  val targetPort: Int
+    get() = dotenv["FLAVORMATE_DB_PORT", "5432"]!!.toInt()
+
+  val targetDatabase: String
+    get() = dotenv["FLAVORMATE_DB_DATABASE"]!!
+
+  val targetUsername: String
+    get() = dotenv["FLAVORMATE_DB_USER"]!!
+
+  val targetPassword: String
+    get() = dotenv["FLAVORMATE_DB_PASSWORD"]!!
 
   fun expandEnvVars(input: String): String {
     var result = input
