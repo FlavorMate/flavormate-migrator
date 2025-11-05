@@ -22,19 +22,21 @@ tailored just for you.
 <details>
 <summary>Docker</summary>
 
-1. Create a `docker-compose.yaml` file (or download one from the [examples](./example))
-2. Download the [.env.template](./example/.env.template) file and rename it to `.env`.
-3. Enter your details into the `.env` file
-4. Start your container with
+1. Download the [.env.template](./example/.env.template) file and rename it to `.env`.
+2. Enter your details into the `.env` file
+3. Check if your data folder has the proper permissions (User / Group `185`)
+   => e.g. `chmod -R 185:185 ./data/files`
+4. Find your docker network where your database is located
+   => `docker network ls`
+5. Modify this command to fit your needs and start the migration with:
 
    ```bash
    docker run --rm \
-   -v .env:/app/.env:ro \
-   -v ./data/files:$FLAVORMATE_PATHS_FILES \
-   ghcr.io/flavormate/flavormate-migrator:latest
+    --network $MY_NETWORK \
+    -v .env:/app/.env:ro \
+    -v ./data/files:$FLAVORMATE_PATHS_FILES \
+    ghcr.io/flavormate/flavormate-migrator:latest
    ```
-
-   (replace `$FLAVORMATE_PATHS_FILES` with the path specified in your `.env` file)
 
 </details>
 
@@ -45,7 +47,7 @@ You must have these dependencies installed:
 
 - Postgresql
 - Java 21
-- ImageMagick (with WEBP and other used formats plugins)
+- ImageMagick 7+ (with WEBP and other used formats plugins)
 
 1. Download the latest [FlavorMate-Migrator.jar](https://github.com/FlavorMate/flavormate-migrator/releases).
 2. Download the [.env.template](./example/.env.template) file and rename it to `.env`.
@@ -77,8 +79,7 @@ You must have these dependencies installed:
 | FLAVORMATE_PATHS_FILES             | Yes      | The path where FlavorMate files are located                  | `/opt/data/` |         |
 | FLAVORMATE_MIGRATOR_CLEAN_DATABASE | No       | Should the FlavorMate 3 Database be overwritten if existent? | `true`       | `false` |
 
-> [!WARNING]
-> `FLAVORMATE_MIGRATOR_CLEAN_DATABASE` will delete all tables beginning with `v3_`.
+> [!WARNING] > `FLAVORMATE_MIGRATOR_CLEAN_DATABASE` will delete all tables beginning with `v3_`.
 > These tables are used by FlavorMate 3, but check if you have any other tables beginning with `v3_` before setting this
 > to `true`.
 
